@@ -14,6 +14,8 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        ConstraintLayout bgElement = (ConstraintLayout)  findViewById((R.id.activity_main));
+        bgElement.setBackgroundColor(Color.RED);
         myButtonListenerMethod();
     }
     public void myButtonListenerMethod() {
