@@ -27,7 +27,9 @@ public class MainActivity extends AppCompatActivity {
                 int color = ((ColorDrawable) bgElement.getBackground()).getColor();
                 if (color == Color.RED) {
                     bgElement.setBackgroundColor(Color.BLUE);
+                    button.setText("Ei para de me clicar");
                 } else {
+                    button.setText("Parou viu!");
                     bgElement.setBackgroundColor(Color.RED);
                 }
             }
