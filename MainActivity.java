@@ -1,4 +1,4 @@
-package com.example.calcarearange;
+package br.com.bq.calcarearange;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -6,6 +6,10 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.SeekBar;
 import android.widget.TextView;
+import android.widget.EditText;
+import android.widget.SeekBar;
+
+import br.com.bq.calcarearange.R;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -14,23 +18,30 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        calcular();
+        rangeAlturaSelectListener();
+        rangeLarguraSelectListener();
     }
 
-    public void calcular() {
-        //buscando pela altura, largura e resposta
-        final SeekBar s_width = (SeekBar) findViewById(R.id.w_slide);
-        final SeekBar s_height = (SeekBar) findViewById(R.id.h_slide);
-        final TextView area_view = (TextView) findViewById(R.id.area_text);
+    public void calculaArea(){
+        final EditText outputArea = (EditText) findViewById(R.id.outputArea);
+        final TextView textSeekBarLargura = findViewById(R.id.textSeekBarLargura);
+        final TextView textSeekBarAltura = findViewById(R.id.textSeekBarAltura);
+        double alturaDecimal = Double.parseDouble(textSeekBarAltura.getText().toString());
+        double larguraDecimal = Double.parseDouble(textSeekBarLargura.getText().toString());
+        double areaDecimal = alturaDecimal * larguraDecimal;
+        outputArea.setText(Double.toString(areaDecimal));
 
-        SeekBar.OnSeekBarChangeListener listener = new SeekBar.OnSeekBarChangeListener() {
+    }
 
+    public void rangeAlturaSelectListener() {
+        SeekBar seekBarTest = findViewById(R.id.seekBar5);
+        final TextView textSeekBarLargura = findViewById(R.id.textSeekBarLargura);
+        seekBarTest.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener(){
             @Override
             //evento de mudança do progresso
             public void onProgressChanged(SeekBar seekBar, int progress, boolean b) {
-                int width = (int) s_width.getProgress();
-                int height = (int) s_height.getProgress();
-                area_view.setText("Área = " + width*height);
+                textSeekBarLargura.setText(String.valueOf(progress));
+                calculaArea();
             }
 
             @Override
@@ -42,8 +53,31 @@ public class MainActivity extends AppCompatActivity {
             public void onStopTrackingTouch(SeekBar seekBar) {
 
             }
-        };
-        s_height.setOnSeekBarChangeListener(listener);
-        s_width.setOnSeekBarChangeListener(listener);
+        });
+
+    }
+
+    public void rangeLarguraSelectListener() {
+        SeekBar seekBarTest = findViewById(R.id.seekBar5);
+        final TextView textSeekBarLargura = findViewById(R.id.textSeekBarLargura);
+        seekBarTest.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener(){
+            @Override
+            //evento de mudança do progresso
+            public void onProgressChanged(SeekBar seekBar, int progress, boolean b) {
+                textSeekBarLargura.setText(String.valueOf(progress));
+                calculaArea();
+            }
+
+            @Override
+            public void onStartTrackingTouch(SeekBar seekBar) {
+
+            }
+
+            @Override
+            public void onStopTrackingTouch(SeekBar seekBar) {
+
+            }
+        });
+
     }
 }
